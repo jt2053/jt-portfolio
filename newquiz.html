@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML/CSSタグクイズ</title>
+		<link rel ="stylesheet" href = "stylesheet.css">
+	</head>
+	<body>
+		<h1>HTML/CSSタグクイズ</h1>
+		<h3>HTML/CSSの作成に不可欠なタグの問題です。</h3>
+		<h3>主要なものは必ず覚えるようにしましょう。</h3>
+			<hr>
+				<div class = "question">
+					<h2>問題</h2>
+					<div id="text_q"></div>
+				</div>
+			<div class = "choice">
+				<h2>選択</h2>
+				<div id="text_s"></div>
+			</div>
+			<div class = "anser">
+				<h2>解答</h2>
+				<div id="text_a"></div>
+			</div>
+		<script type="text/javascript">
+    	// 問題と解答
+    		qa = new Array();
+    		qa[0] = ["見出しを書き出したい時は、どのタグを使うでしょう","a","h1","p",2];
+    		qa[1] = ["画像を表示させるためのタグはどれでしょう","img","ing","ling",1];
+    		qa[2] = ["太字で表示するためのタグはどれでしょう","v","d","b",3];
+    		qa[3] = ["マーカーをつけるためのタグはどれでしょう","mark","monk","mork",1];
+    		qa[4] = ["入力欄を作るためのタグはどれでしょう","output","input","pitbull",2];
+    		qa[5] = ["表を作成する際のタグはどれでしょう","total","tool","table",3];
+    		qa[6] = ["順番無しのリストを作成するタグはどれでしょう","ol","ul","al",2];
+    		qa[7] = ["ページのヘッダーであることを表すタグはどれでしょう","header","heeder","topper",1];
+    		qa[8] = ["ページの株であることを表すタグはどれでしょう","downeer","floater","footer",3];
+    		qa[9] = ["ページのタイトルを表すタグはどれでしょう","main","title","pagetitle",2];
+    
+		//選択肢の数
+			q_sel = 3;
+			setReady();
+		//初期設定
+			function setReady() {
+			//問題番号	
+				count = 0;
+			//解答記録
+				ansers = new Array();
+			//最初の問題
+				quiz();
+			}
+		//問題表示
+			function quiz() {
+			//問題
+				document.getElementById("text_q").innerHTML = (count + 1) + "問目：" + qa[count][0];
+    		//選択肢
+				s = "";
+				for (n=1;n<=q_sel;n++) {
+					s += "【<a href='javascript:anser(" + n + ")'>" + n + "：" + qa[count][n] + "</a>】";
+				}
+				document.getElementById("text_s").innerHTML = s;
+			}
+    	//解答表示
+			function anser(num) {
+				var s;
+				s = (count + 1) + "問目：";
+			//答え合わせ
+				if (num == qa[count][q_sel + 1]) {
+				//正解
+					s += "○" + qa[count][num];
+        			ansers[count] = "○";
+				} else {
+				//不正解
+					s += "×" + qa[count][num];
+        			ansers[count] = "×";
+				}
+				document.getElementById("text_a").innerHTML = s;
+    		//次の問題を表示
+				count++;
+    			if (count < qa.length) {
+					quiz();
+				} else {
+				//終了
+        			s = "<table border='2'><caption>成績発表</caption>";
+				//1行目
+					s += "<tr><th>問題</th>";
+					for (n=0;n<qa.length;n++) {
+						s += "<th>" + (n+1) + "</th>";
+					}
+					s += "</tr>";
+				//2行目
+					s += "<tr><th>成績</th>";
+					for (n=0;n<qa.length;n++) {
+						s += "<td>" + ansers[n] + "</td>";
+					}
+					s += "</tr>";
+					s += "</table>";
+					document.getElementById("text_q").innerHTML = s;
+    			//次の選択肢
+					s = "【<a href='javascript:history.back()'>前のページに戻る</a>】";
+					s += "【<a href='javascript:setReady()'>同じ問題を最初から</a>】";
+					s += "【<a href=''>次の問題に進む</a>】";
+					document.getElementById("text_s").innerHTML = s;
+				}
+			}
+    	</script>
+	</body>
+</html>
